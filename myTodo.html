@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>myTodo</title>
+    <link rel="stylesheet" href="myTodo.css" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+  </head>
+  <body>
+    <div class="navbar">
+      <img class="icon" src="icons/navIcon.svg" />
+      <p><strong style="color:#dd7797; ">myTodo</strong></p>
+      <a href="#" onclick="{openAddTaskModal()}"
+        ><img class="taskicon" src="icons/addTask.jpg" />
+      </a>
+    </div>
+    <div id="border">
+      <h1 style="color:black; padding-left: 43%; ">Task Board</h1>
+      <hr />
+      <a href="#" onclick="{openAddTaskModal()}"
+        ><h2 id="emptyBoard" style="color:black; padding-left: 38%; "></h2>
+      </a>
+      <div class="row"></div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="closing">&times;</span>
+        <legend><span class="number">1</span> Add Task</legend>
+        <div class="modal-body">
+          <hr />
+          <br />
+          <input
+            type="text"
+            id="titleInput"
+            placeholder="Add title to the list"
+            name="title"
+          />
+          <div id="emptyTaskErr" style="color : red; padding-left: 35%;"></div>
+          <br />
+          <input
+            type="text"
+            id="input"
+            autocomplete="off"
+            placeholder="Add task "
+            name="task"
+          />
+          <ul id="listInput"></ul>
+          <div id="emptyListErr" style="color : red; padding-left: 40%;"></div>
+          <br />
+          <button onclick="addToList()" id="plus"><strong>+</strong></button>
+          <br /><br />
+          <hr />
+          <br /><br />
+          <button type="submit" onclick="addTask()">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="myModalExp" class="modalExp">
+      <div class="modalExp-content">
+        <span class="closeExp">&times;</span>
+        <div style="padding-left: 39%;">Created on:</div>
+        <div class="dateTimeExp"></div>
+        <div class="exp"></div>
+      </div>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script src="myTodo.js"></script>
+  </body>
+</html>

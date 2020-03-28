@@ -1,0 +1,351 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+#list {
+  padding-left: 0%;
+}
+.column {
+  float: left;
+  width: 32%;
+  padding: 0 10px;
+  padding: 10px;
+  margin-bottom: 70px;
+}
+
+#border {
+  position: absolute;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 7%;
+  margin-right: 7%;
+  width: 83%;
+  height: auto;
+  /* min-height: 700px; */
+  background-color: lightsteelblue;
+  border: 1px solid rgb(15, 15, 15);
+  border-radius: 10px;
+}
+.row {
+  margin: 5% -5px;
+}
+.row:after {
+  border-color: #080808;
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 13%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 6%;
+  padding-left: 10%;
+  background-color: white;
+  text-decoration-color: #e0e9e7;
+  font-size: 120%;
+  color: #116979;
+  border-radius: 10px;
+  height: 200px;
+  min-height: 200px;
+  /* text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap; */
+}
+/* #lis {
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+
+} */
+
+.title {
+  font-size: 100%;
+  font-weight: bold;
+}
+.card ul {
+  list-style-type: square;
+}
+.exp ul {
+  list-style-type: none;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+.modal {
+  top: 10%;
+  left: 22%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  width: 60%;
+  height: 100%;
+  overflow: scroll;
+  margin: 10px auto;
+  border-radius: 8px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.modal-content legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.modal-content {
+  width: 80%;
+  z-index: 1000;
+  height: 70%;
+  margin-bottom: 5%;
+  margin-bottom: 5%;
+  overflow: scroll;
+  padding: 10px 20px;
+  background: #fdfdfd;
+  overflow: auto; /* Enable scroll if needed */
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  overflow: auto;
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.modal-content input[type="text"] {
+  font-family: Georgia;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  width: 70%;
+  margin-left: 15%;
+  text-align: center;
+  background-color: #e8eeef;
+  margin-bottom: 30px;
+}
+.modal-content .number {
+  background: #d45079;
+  color: #fff;
+  height: auto;
+  width: 30px;
+  display: inline-block;
+  margin-right: 4px;
+  text-align: center;
+  border-radius: 15px 15px 15px 0px;
+}
+.title {
+  text-transform: uppercase;
+  /* text-align: center; */
+  text-decoration: bold;
+}
+#myCheck {
+  background-color: rgb(40, 43, 40);
+  margin-right: 5%;
+  display: inline-block;
+  appearance: none;
+  background-repeat: no-repeat;
+}
+#newTask {
+  font-size: 20px;
+  list-style-type: square;
+}
+
+.modal-content button {
+  display: block;
+  /* padding: 19px 39px 19px 39px; */
+  padding: 10px 20px 10px 20px;
+  color: #fff;
+  margin: 0 auto;
+  background: #1abc9c;
+  font-size: 15px;
+  font-style: normal;
+  width: 15%;
+  border-radius: 8px;
+  border: 1px solid #16a085;
+  border-width: 1px 1px 3px;
+  text-align: center;
+}
+
+.modal-content button:focus {
+  outline: 0;
+}
+#plus {
+  /* text-align: center; */
+  /* display: inline-block; */
+  /* display: block; */
+  padding: 5px;
+  /* color: #FFF; */
+  /* margin: 0 auto; */
+  background: #d45079;
+  /* font-size: 22px; */
+  font-style: normal;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid #d45079;
+  /* border-width: 1px 1px 3px; */
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding-right: 8%;
+}
+.closing {
+  color: #696666;
+  cursor: pointer;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding-right: 4%;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
+.icon {
+  float: left;
+  margin-left: 2%;
+  margin-right: 1%;
+  position: relative;
+  /* Adjust these values accordingly */
+  top: 10px;
+  left: 5px;
+  height: 35px;
+  width: 35px;
+}
+.taskicon {
+  float: right;
+  position: relative;
+  top: 0px;
+  margin-right: 115px;
+  left: 5px;
+  height: 35px;
+  width: 35px;
+}
+
+.navbar {
+  overflow: hidden;
+  margin-top: 20px;
+  /* background-color: #f8f6f2; */
+  background-color: white;
+  height: 120%;
+  top: 0;
+  width: 100%;
+}
+
+.navbar a {
+  float: right;
+  /* top : 10px; */
+  margin-left: 2%;
+  margin-right: 1.5%;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  display: block;
+  color: #161515;
+  text-align: center;
+  /* padding: 10px; */
+  text-decoration: none;
+}
+
+/* modal exp */
+
+/* The Modal (background) */
+.modalExp {
+  top: 18%;
+  left: 20%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  width: 60%;
+  height: 100%;
+  overflow: auto;
+  margin: 10px auto;
+  border-radius: 8px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* Modal Content */
+.modalExp-content {
+  width: 80%;
+  height: auto;
+  margin-bottom: 5%;
+  margin-bottom: 5%;
+  padding: 10px 20px;
+  background-color: #ceecda;
+  overflow: auto;
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  overflow: auto;
+}
+
+.closeExp {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closeExp:hover,
+.closeExp:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cardModal {
+  margin-left: 45%;
+  margin-right: 5%;
+  margin-bottom: 13%;
+  color: #116979;
+  margin-top: 38%;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 6%;
+  text-decoration-color: #e0e9e7;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: white;
+  opacity: 2;
+  height: auto;
+  width: 400px;
+}
+#btnExp {
+  color: #ea9085;
+  float: right;
+  font-size: 15px;
+  padding-top: 45%;
+  font-weight: bold;
+  padding-right: 0%;
+  cursor: pointer;
+}
+
+.dateTimeExp {
+  padding-left: 35%;
+}
