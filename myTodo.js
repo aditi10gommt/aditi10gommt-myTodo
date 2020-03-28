@@ -1,7 +1,7 @@
 let cardId = 0;
 
 window.onload = init;
-
+// init initializes
 function init() {
   let localStorageData = getDataFromLocalStorage();
   if (!localStorageData || localStorageData.length == 0) {
