@@ -18,8 +18,7 @@ function init() {
 }
 
 function createCard(taskItems, taskTitle, creationTime) {
-  let chars = 0;
-  chars = chars + taskTitle.length;
+  let chars = taskTitle.length;
   let cardSize = 1;
   let k = 0;
 
@@ -30,8 +29,8 @@ function createCard(taskItems, taskTitle, creationTime) {
   };
   let short_title = taskTitle;
   if (chars > 70) {
-    short_title = taskTitle.slice(0, 70);
-    short_title = short_title + "...";
+    short_title = taskTitle.slice(0, 40);
+    short_title = short_title + "....";
   }
 
   taskItems.sort(function(x, y) {
@@ -64,26 +63,30 @@ function createCard(taskItems, taskTitle, creationTime) {
 
   const ulDiv = document.createElement("ul");
   ulDiv.setAttribute("id", "list");
+  var i = 0;
   taskItems.forEach(element => {
     //for each starts here
     const newTodo = document.createElement("li");
     let addTask = document.createTextNode(element.name);
-    newTodo.setAttribute("id", "lis");
+    newTodo.setAttribute("id", "listItem");
 
     newCard.tasks.push(element);
     chars = chars + element.name.length;
-    if (cardSize < 4 && chars < 50) {
-      newTodo.appendChild(addTask);
-      ulDiv.appendChild(newTodo);
-      cardSize++;
-    } else if (cardSize < 4 && chars > 50 && chars < 70) {
-      let toBeContinued = element.name.slice(0, 30);
-      toBeContinued = toBeContinued + "...";
-      let addTask = document.createTextNode(toBeContinued);
+
+    if (cardSize < 4) {
       newTodo.appendChild(addTask);
       ulDiv.appendChild(newTodo);
       cardSize++;
     }
+    // } else if (cardSize < 4 && chars > 50) {
+    //   // let toBeContinued = element.name.slice(0, 40);
+    //   // toBeContinued = toBeContinued + "...";
+    //   // if (toBeContinued.length < 45) {
+    //   //   let addTask = document.createTextNode(toBeContinued);
+    //   newTodo.appendChild(addTask);
+    //   ulDiv.appendChild(newTodo);
+    //   cardSize++;
+    // }
     k++;
   }); // end of forEach loop
   if (taskItems.length > 3) {
@@ -123,7 +126,6 @@ function addTask() {
     let newCard = createCard(taskItems, taskTitle, dateTime);
     pushCardInLocalstorage(newCard);
     span.onclick();
-    del();
   }
 }
 
