@@ -1,7 +1,7 @@
 let cardId = 0;
 
 window.onload = init;
-// init initializes
+
 function init() {
   let localStorageData = getDataFromLocalStorage();
   if (!localStorageData || localStorageData.length == 0) {
@@ -63,30 +63,19 @@ function createCard(taskItems, taskTitle, creationTime) {
 
   const ulDiv = document.createElement("ul");
   ulDiv.setAttribute("id", "list");
-  var i = 0;
+
   taskItems.forEach(element => {
     //for each starts here
-    const newTodo = document.createElement("li");
-    let addTask = document.createTextNode(element.name);
-    newTodo.setAttribute("id", "listItem");
-
-    newCard.tasks.push(element);
-    chars = chars + element.name.length;
-
     if (cardSize < 4) {
+      const newTodo = document.createElement("li");
+      let addTask = document.createTextNode(element.name);
+      newTodo.setAttribute("id", "listItem");
+      chars = chars + element.name.length;
       newTodo.appendChild(addTask);
       ulDiv.appendChild(newTodo);
       cardSize++;
     }
-    // } else if (cardSize < 4 && chars > 50) {
-    //   // let toBeContinued = element.name.slice(0, 40);
-    //   // toBeContinued = toBeContinued + "...";
-    //   // if (toBeContinued.length < 45) {
-    //   //   let addTask = document.createTextNode(toBeContinued);
-    //   newTodo.appendChild(addTask);
-    //   ulDiv.appendChild(newTodo);
-    //   cardSize++;
-    // }
+    newCard.tasks.push(element);
     k++;
   }); // end of forEach loop
   if (taskItems.length > 3) {
@@ -114,7 +103,6 @@ function createCard(taskItems, taskTitle, creationTime) {
 //when submit button gets clicked
 function addTask() {
   let taskTitle = document.getElementById("titleInput").value;
-
   const dateTime = getDateTime();
   if (taskTitle == "") {
     taskTitle = "My Todo";
@@ -122,6 +110,7 @@ function addTask() {
   if (taskItems.length == 0) {
     document.getElementById("emptyListErr").innerHTML = "Please add tasks!";
   } else {
+    taskTitle = taskTitle.replace(/^\s+|\s+$/g, "");
     document.getElementById("emptyListErr").innerHTML = "";
     let newCard = createCard(taskItems, taskTitle, dateTime);
     pushCardInLocalstorage(newCard);
@@ -137,6 +126,7 @@ function addToList() {
     document.getElementById("emptyTaskErr").innerHTML =
       "Please enter a valid task !";
   } else {
+    toDo = toDo.replace(/^\s+|\s+$/g, "");
     document.getElementById("emptyTaskErr").innerHTML = "";
     document.getElementById("emptyListErr").innerHTML = "";
 
@@ -167,10 +157,10 @@ span.onclick = function() {
   modal.style.display = "none";
   document.getElementById("overlay").style = "display:none";
 };
-
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+    document.getElementById("overlay").style = "display:none";
   }
 };
 
@@ -252,12 +242,7 @@ function removeCard(cardNumber) {
   const element = document.getElementById(remCol);
   let localStorageData = getDataFromLocalStorage();
   element.remove();
-  for (let i = 0; i < localStorageData.length; i++) {
-    if (i == cardNumber) {
-      localStorageData.splice(i, 1);
-      break;
-    }
-  }
+  localStorageData.splice(cardNumber, 1);
   setDataInLocalStorage(localStorageData);
   location.reload();
 }
