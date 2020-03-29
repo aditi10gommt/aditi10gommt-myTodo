@@ -219,7 +219,7 @@ function expandCard(cardNumber) {
     const chkId = `column${cardNumber}${k++}`;
     chk.setAttribute("class", `${chkId}`);
     newTodo.setAttribute("class", `${chkId}`);
-    chk.setAttribute("onclick", `changeStatusAsDone(${cardNumber},${k - 1})`);
+    chk.setAttribute("onclick", `changeStatusOfTask(${cardNumber},${k - 1})`);
 
     newTodo.appendChild(chk);
     newTodo.appendChild(addTask);
@@ -275,22 +275,33 @@ function setDataInLocalStorage(localStorageData) {
   localStorage.setItem("todoList", localStorageData);
 }
 
-const SPAN_ELEMENT_ITEM_TITLE = 0;
+const LI_ELEMENT_ITEM_TITLE = 0;
 const INPUT_ELEMENT_CHECKBOX = 1;
 
-function strikeThroughItem(cardNumber, itemNumber) {
+function strikeThroughItem(cardNumber, itemNumber, status) {
   const refernce = `column${cardNumber}${itemNumber}`;
   const listItem = document.querySelectorAll(`.${refernce}`);
-  listItem[SPAN_ELEMENT_ITEM_TITLE].style.textDecoration = "line-through";
-  listItem[INPUT_ELEMENT_CHECKBOX].disabled = true;
-  listItem[INPUT_ELEMENT_CHECKBOX].checked = true;
+  if (status) {
+    listItem[LI_ELEMENT_ITEM_TITLE].style.textDecoration = "line-through";
+    listItem[INPUT_ELEMENT_CHECKBOX].checked = true;
+  } else {
+    listItem[LI_ELEMENT_ITEM_TITLE].style.textDecoration = "none";
+    listItem[INPUT_ELEMENT_CHECKBOX].checked = false;
+  }
 }
 
-function changeStatusAsDone(cardNumber, taskNumber) {
+function changeStatusOfTask(cardNumber, taskNumber) {
   let localStorageData = getDataFromLocalStorage();
-  localStorageData[cardNumber].tasks[taskNumber].done = true;
+  let status = localStorageData[cardNumber].tasks[taskNumber].done;
+  if (status) {
+    localStorageData[cardNumber].tasks[taskNumber].done = false;
+    status = false;
+  } else {
+    localStorageData[cardNumber].tasks[taskNumber].done = true;
+    status = true;
+  }
   setDataInLocalStorage(localStorageData);
-  strikeThroughItem(cardNumber, taskNumber);
+  strikeThroughItem(cardNumber, taskNumber, status);
 }
 
 function markDone(cardNumber) {
@@ -301,7 +312,7 @@ function markDone(cardNumber) {
 
   for (let j = 0; j < taskItemsLength; j++) {
     if (currentTask.tasks[j].done) {
-      strikeThroughItem(cardNumber, j);
+      strikeThroughItem(cardNumber, j, true);
       allTasksDone++;
     }
   }
