@@ -3,6 +3,13 @@ let cardId = 0;
 window.onload = init;
 
 function init() {
+  let cardViewed = JSON.parse(localStorage.getItem("cardViewed"));
+  if (cardViewed > -1) {
+    expandCard(Number(cardViewed));
+  }
+  if (JSON.parse(Number(localStorage.getItem("openAddCard")))) {
+    openAddTaskModal();
+  }
   let localStorageData = getDataFromLocalStorage();
   if (!localStorageData || localStorageData.length == 0) {
     document.getElementById("emptyBoard").innerHTML =
@@ -21,7 +28,6 @@ function createCard(taskItems, taskTitle, creationTime) {
   let chars = taskTitle.length;
   let cardSize = 1;
   let k = 0;
-
   let newCard = {
     title: taskTitle,
     creationTime: creationTime,
@@ -149,12 +155,14 @@ var span = document.getElementsByClassName("closing")[0];
 
 function openAddTaskModal() {
   taskItems = [];
+  localStorage.setItem("openAddCard", JSON.stringify(1));
   document.getElementById("overlay").style = "display:block";
   modal.style.display = "block";
 }
 
 span.onclick = function() {
   modal.style.display = "none";
+  localStorage.setItem("openAddCard", JSON.stringify(0));
   document.getElementById("overlay").style = "display:none";
 };
 window.onclick = function(event) {
@@ -170,12 +178,14 @@ closeExp.onclick = function() {
   document.querySelector(".exp").innerHTML = "";
   myModalExp.style.display = "none";
   document.getElementById("overlay").style = "display:none";
+  localStorage.setItem("cardViewed", JSON.stringify(-1));
 };
 
 function expandCard(cardNumber) {
   document.querySelector(".dateTimeExp").innerHTML = "";
   document.getElementById("overlay").style = "display:block";
   document.getElementById("myModalExp").style.display = "block";
+  localStorage.setItem("cardViewed", JSON.stringify(cardNumber));
 
   const localStorageData = getDataFromLocalStorage();
   let k = 0;
