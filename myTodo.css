@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -96,7 +95,7 @@ body {
 
 .modal-content legend {
   font-size: 1.4em;
-  margin-bottom: 10px;
+  margin-bottom: 3%;
 }
 
 .modal-content {
@@ -106,12 +105,13 @@ body {
   margin-bottom: 5%;
   margin-bottom: 5%;
   overflow: scroll;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding: 10% 20%;
   background: #fdfdfd;
   overflow: auto; /* Enable scroll if needed */
   margin: 10px auto;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 4%;
+  border-radius: 4%;
   font-family: Georgia, "Times New Roman", Times, serif;
   overflow: auto;
 }
@@ -129,8 +129,8 @@ body {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
   border: none;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 120%;
+  padding: 2%;
   width: 70%;
   margin-left: 15%;
   text-align: center;
@@ -138,13 +138,14 @@ body {
   margin-bottom: 30px;
   outline: none;
 }
+
 .modal-content .number {
   background: #d45079;
   color: #fff;
   height: auto;
-  width: 30px;
+  width: 5%;
   display: inline-block;
-  margin-right: 4px;
+  margin-right: 40%;
   text-align: center;
   border-radius: 15px 15px 15px 0px;
 }
@@ -167,51 +168,44 @@ body {
 
 .modal-content button {
   display: block;
-  /* padding: 19px 39px 19px 39px; */
-  padding: 10px 20px 10px 20px;
+  /* padding: 10px 20px 10px 20px; */
+  padding: 3% 5% 3% 5%;
   color: #fff;
   margin: 0 auto;
   background: #1abc9c;
-  font-size: 15px;
+  font-size: 90%;
   font-style: normal;
   width: 15%;
-  border-radius: 8px;
-  border: 1px solid #16a085;
-  border-width: 1px 1px 3px;
+  border-radius: 5%;
+  border: 1% solid #16a085;
+  border-width: 0.5% 0.5% 1%;
   text-align: center;
 }
-
 .modal-content button:focus {
   outline: 0;
 }
 #plus {
-  /* text-align: center; */
-  /* display: inline-block; */
-  /* display: block; */
-  padding: 5px;
-  /* color: #FFF; */
-  /* margin: 0 auto; */
+  padding: 1%;
   background: #d45079;
-  /* font-size: 22px; */
   font-style: normal;
   width: 30px;
   border-radius: 50%;
   border: 1px solid #d45079;
-  /* border-width: 1px 1px 3px; */
 }
 
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  /* font-size: 28px; */
   font-weight: bold;
+  font-size: 200%;
   padding-right: 8%;
 }
 .closing {
   color: #696666;
   cursor: pointer;
   float: right;
-  font-size: 28px;
+  font-size: 200%;
   font-weight: bold;
   padding-right: 4%;
 }
@@ -280,7 +274,7 @@ input[type="checkbox"]:checked + label {
   position: fixed;
   z-index: 1;
   width: 60%;
-  height: 100%;
+  height: 80%;
   margin: 10px auto;
   border-radius: 8px;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -296,7 +290,7 @@ input[type="checkbox"]:checked + label {
   background-color: #ceecda;
   overflow: auto;
   margin: 10px auto;
-  padding: 20px;
+  padding: 2%;
   border-radius: 8px;
   font-family: Georgia, "Times New Roman", Times, serif;
   overflow: auto;
@@ -305,7 +299,7 @@ input[type="checkbox"]:checked + label {
 .closeExp {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 170%;
   font-weight: bold;
 }
 
@@ -325,17 +319,18 @@ input[type="checkbox"]:checked + label {
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   padding: 6%;
   text-decoration-color: #e0e9e7;
-  font-size: 20px;
-  border-radius: 10px;
+  font-size: 120%;
+  border-radius: 3%;
   background-color: white;
   opacity: 2;
   height: auto;
-  width: 400px;
+  /* width: 400px; */
+  width: 250%;
 }
 #btnExp {
   color: #ea9085;
   float: right;
-  font-size: 15px;
+  font-size: 100%;
   padding-top: 45%;
   font-weight: bold;
   padding-right: 0%;
