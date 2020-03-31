@@ -158,6 +158,13 @@ function addToList() {
   }
 }
 
+var input = document.getElementById("input");
+input.addEventListener("keydown", function(e) {
+  if (e.keyCode === 13) {
+    addToList();
+  }
+});
+
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("closing")[0];
 
