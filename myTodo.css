@@ -79,6 +79,8 @@ body {
     margin-bottom: 20px;
   }
 }
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+}
 .modal {
   top: 10%;
   left: 22%;
@@ -234,7 +236,7 @@ input[type="checkbox"]:checked + label {
 #taskicon {
   float: right;
   position: relative;
-  top: 0px;
+  bottom: 43px;
   margin-right: 115px;
   left: 5px;
   height: 35px;
@@ -339,4 +341,34 @@ input[type="checkbox"]:checked + label {
 
 .dateTimeExp {
   padding-left: 35%;
+}
+@media screen and (max-width: 400px) {
+  .modal {
+    display: none;
+    z-index: 1;
+    width: 100%;
+    top: 10%;
+    position: fixed;
+    height: 100%;
+    overflow: scroll;
+    margin: 10px auto;
+    border-radius: 8px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+  }
+
+  .modal-content {
+    width: 100%;
+    z-index: 1000;
+    height: 70%;
+    margin-bottom: 5%;
+    margin-bottom: 5%;
+    overflow: scroll;
+    /* padding: 10px 20px; */
+    padding: 10% 20%;
+    background: #fdfdfd;
+    overflow: auto; /* Enable scroll if needed */
+    border-radius: 4%;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    overflow: auto;
+  }
 }
