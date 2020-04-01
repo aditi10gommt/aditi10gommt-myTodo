@@ -10,12 +10,17 @@
   </head>
   <body>
     <div id="navbar">
+      <div id="navSearch"></div>
       <img id="icon" src="icons/navIcon.svg" />
       <p><strong style="color:#dd7797; ">myTodo</strong></p>
-      <a href="#" onclick="{openAddTaskModal()}"
-        ><img id="taskicon" src="icons/addTask.jpg" />
-      </a>
+
+        <input type="text" placeholder="Search.." id="searchCard" />
+      </div>
+        <a href="#" onclick="{openAddTaskModal()}"
+          ><img id="taskicon" src="icons/addTask.jpg" />
+        </a>
     </div>
+
     <div id="border">
       <h1 style="color:black; padding-left: 43%; ">Task Board</h1>
       <hr />

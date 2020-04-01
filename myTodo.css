@@ -213,7 +213,12 @@ body {
 input[type="checkbox"]:checked + label {
   text-decoration: line-through;
 }
-
+#editCard {
+  font-size: 15px;
+  /* margin-left: 10%; */
+  width: 100%;
+  border: black solid 1px;
+}
 #icon {
   float: left;
   margin-left: 2%;
@@ -225,14 +230,29 @@ input[type="checkbox"]:checked + label {
   height: 35px;
   width: 35px;
 }
+#editIcon {
+  float: right;
+  margin-left: 2%;
+  margin-right: 1%;
+  position: relative;
+  /* top: 1px; */
+  bottom: 20px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+}
 #taskicon {
   float: right;
   position: relative;
-  bottom: 43px;
+  bottom: 83px;
   margin-right: 115px;
   left: 5px;
   height: 35px;
   width: 35px;
+}
+#navSearch {
+  /* background-color: red; */
+  bottom: 100px;
 }
 
 #navbar {
@@ -240,11 +260,22 @@ input[type="checkbox"]:checked + label {
   margin-top: 20px;
   /* background-color: #f8f6f2; */
   background-color: white;
-  height: 120%;
+  height: 90%;
   top: 0;
   width: 100%;
 }
-
+#navbar input[type="text"] {
+  margin-top: 2px;
+  background-color: white;
+  border: 1px solid rgb(17, 16, 16);
+  font-size: 15px;
+  float: center;
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 1%;
+  width: 15%;
+}
 #navbar a {
   float: right;
   /* top : 10px; */
