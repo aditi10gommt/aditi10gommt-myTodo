@@ -110,6 +110,7 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
 
   return newCard;
 }
+
 function createUnorderedListElements(taskItems, ulDiv) {
   ulDiv.innerHTML = "";
   let cardSize = 1;
