@@ -14,7 +14,7 @@
       <p id="appName"><strong>myTodo</strong></p>
       <div id="navSearch">
         <input type="text" placeholder="Search.." id="searchCard" />
-        <a href="#" onclick="openAddTaskModal()"
+        <a href="#taskicon" onclick="openAddTaskModal()"
           ><img id="taskicon" src="icons/addTask.jpg" />
         </a>
       </div>
@@ -23,7 +23,9 @@
     <div id="border">
       <h1 id="taskBoard">Task Board</h1>
       <hr />
-      <a href="#" onclick="{openAddTaskModal()}"><h2 id="emptyBoard"></h2> </a>
+      <a href="#taskicon" onclick="{openAddTaskModal()}"
+        ><h2 id="emptyBoard"></h2>
+      </a>
       <div class="row"></div>
     </div>
 
@@ -52,8 +54,10 @@
           <ul id="listInput"></ul>
           <div id="emptyListError"></div>
           <br />
+          <button onclick="addToList()" id="plus"><strong>+</strong></button>
+          <br /><br />
           <hr />
-          <br />
+          <br /><br />
           <button type="submit" onclick="addTask()">Submit</button>
         </div>
       </div>

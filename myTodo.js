@@ -60,9 +60,10 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
   closeDiv.appendChild(closeX);
   closeDiv.setAttribute("onclick", `removeCard(${newCard.id})`);
 
-  const zoomDiv = document.createElement("span");
+  const zoomDiv = document.createElement("a");
   zoomDiv.setAttribute("id", "btnExp");
   const zoomX = document.createTextNode("View");
+  zoomDiv.setAttribute("href", `#expandCard${newCard.id}`);
   zoomDiv.appendChild(zoomX);
   zoomDiv.setAttribute("onclick", `expandCard(${newCard.id})`);
 
@@ -224,6 +225,9 @@ function openAddTaskModal() {
 span.onclick = function() {
   modal.style.display = "none";
   document.getElementById("overlay").style = "display:none";
+  location.replace(
+    "file:///Users/aditi.laturkar/Desktop/GOMMT/myTodo/myTodo.html"
+  );
 };
 window.onclick = function(event) {
   if (event.target == modal) {
@@ -237,6 +241,9 @@ closeExp.onclick = function() {
   document.querySelector(".exp").innerHTML = "";
   expandCardModal.style.display = "none";
   document.getElementById("overlay").style = "display:none";
+  location.replace(
+    "file:///Users/aditi.laturkar/Desktop/GOMMT/myTodo/myTodo.html"
+  );
 };
 
 function findCurrentCard(currCardId) {
@@ -259,6 +266,7 @@ function editCard(currCardId) {
   };
   localStorageData[index].tasks.push(newTask);
   setDataInLocalStorage(localStorageData, "todoList");
+  document.getElementById("editCard").value = "";
   return newTask;
 }
 
@@ -447,5 +455,26 @@ function addFirstCardMsg() {
     document.getElementById("emptyBoard").innerHTML =
       "Add your first task here!";
     return -1;
+  }
+}
+
+window.addEventListener("load", onRouteChanged);
+function onRouteChanged() {
+  let hash = window.location.hash;
+  let cardId;
+  if (hash[1] == "e") {
+    cardId = hash.slice(11);
+    console.log(cardId);
+    hash = "#expandCard";
+  }
+
+  switch (hash) {
+    case "#taskicon":
+      openAddTaskModal();
+      break;
+
+    case `#expandCard`:
+      expandCard(Number(cardId));
+      break;
   }
 }

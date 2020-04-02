@@ -260,6 +260,15 @@ input[type="checkbox"]:checked + label {
   bottom: 183px;
   /* margin-top: 30px; */
 }
+#plus {
+  padding: 5px;
+  background: #d45079;
+  font-style: normal;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid #d45079;
+}
+
 #navbar {
   overflow: hidden;
   margin-top: 20px;
