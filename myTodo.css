@@ -254,7 +254,12 @@ input[type="checkbox"]:checked + label {
   /* background-color: red; */
   bottom: 100px;
 }
-
+#searchCard {
+  color: #000;
+  margin-left: 68%;
+  bottom: 183px;
+  /* margin-top: 30px; */
+}
 #navbar {
   overflow: hidden;
   margin-top: 20px;
@@ -265,14 +270,14 @@ input[type="checkbox"]:checked + label {
   width: 100%;
 }
 #navbar input[type="text"] {
-  margin-top: 2px;
+  /* margin-top: 2px; */
   background-color: white;
   border: 1px solid rgb(17, 16, 16);
   font-size: 15px;
   float: center;
   display: block;
   text-align: left;
-  margin: 0;
+  /* margin: 0; */
   padding: 1%;
   width: 15%;
 }
@@ -394,4 +399,23 @@ input[type="checkbox"]:checked + label {
     font-family: Georgia, "Times New Roman", Times, serif;
     overflow: auto;
   }
+}
+#appName {
+  color: #dd7797;
+}
+#taskBoard {
+  color: black;
+  padding-left: 43%;
+}
+#emptyBoard {
+  color: black;
+  padding-left: 38%;
+}
+#emptyTaskError {
+  color: red;
+  padding-left: 35%;
+}
+#emptyListError {
+  color: red;
+  padding-left: 40%;
 }

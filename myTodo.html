@@ -10,23 +10,20 @@
   </head>
   <body>
     <div id="navbar">
-      <div id="navSearch"></div>
       <img id="icon" src="icons/navIcon.svg" />
-      <p><strong style="color:#dd7797; ">myTodo</strong></p>
-
+      <p id="appName"><strong>myTodo</strong></p>
+      <div id="navSearch">
         <input type="text" placeholder="Search.." id="searchCard" />
-      </div>
-        <a href="#" onclick="{openAddTaskModal()}"
+        <a href="#" onclick="openAddTaskModal()"
           ><img id="taskicon" src="icons/addTask.jpg" />
         </a>
+      </div>
     </div>
 
     <div id="border">
-      <h1 style="color:black; padding-left: 43%; ">Task Board</h1>
+      <h1 id="taskBoard">Task Board</h1>
       <hr />
-      <a href="#" onclick="{openAddTaskModal()}"
-        ><h2 id="emptyBoard" style="color:black; padding-left: 38%; "></h2>
-      </a>
+      <a href="#" onclick="{openAddTaskModal()}"><h2 id="emptyBoard"></h2> </a>
       <div class="row"></div>
     </div>
 
@@ -43,7 +40,7 @@
             placeholder="Add title to the list"
             name="title"
           />
-          <div id="emptyTaskErr" style="color : red; padding-left: 35%;"></div>
+          <div id="emptyTaskError"></div>
           <br />
           <input
             type="text"
@@ -53,7 +50,7 @@
             name="task"
           />
           <ul id="listInput"></ul>
-          <div id="emptyListErr" style="color : red; padding-left: 40%;"></div>
+          <div id="emptyListError"></div>
           <br />
           <hr />
           <br />
@@ -62,7 +59,7 @@
       </div>
     </div>
 
-    <div id="myModalExp" class="modalExp">
+    <div id="expandCardModal" class="modalExp">
       <div class="modalExp-content">
         <span class="closeExp">&times;</span>
         <div style="padding-left: 39%;">Created on:</div>

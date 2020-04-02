@@ -1,20 +1,17 @@
 window.onload = init("todoList");
 
+let taskItems = [];
+
 function init(key) {
-  let cardViewed = JSON.parse(localStorage.getItem("cardViewed"));
-  if (cardViewed > -1) {
-    expandCard(Number(cardViewed));
-  }
-  if (JSON.parse(Number(localStorage.getItem("openAddCard")))) {
-    openAddTaskModal();
-  }
-  addFirstCardMsg();
-  let localStorageData = getDataFromLocalStorage(key);
+  const dataPresent = addFirstCardMsg();
+  if (dataPresent == -1) return;
+  const localStorageData = getDataFromLocalStorage(key);
   for (let index = 0; index < localStorageData.length; index++) {
-    const taskTitle = localStorageData[index].title;
-    const creationTime = localStorageData[index].creationTime;
-    const taskItems = localStorageData[index].tasks;
-    let cardId = localStorageData[index].id;
+    const task = localStorageData[index];
+    const taskTitle = task.title;
+    const creationTime = task.creationTime;
+    const taskItems = task.tasks;
+    const cardId = task.id;
     createCard(taskItems, taskTitle, creationTime, cardId);
   }
 }
@@ -30,12 +27,16 @@ function assignCardId() {
   }
 }
 
+function sortingOfTasks(taskItems) {
+  taskItems.sort(function(x, y) {
+    return x.done === y.done ? 0 : x.done ? 1 : -1;
+  });
+  return taskItems;
+}
 function createCard(taskItems, taskTitle, creationTime, cardId) {
   let chars = taskTitle.length;
-  let cardSize = 1;
-  let k = 0;
 
-  let newCard = {
+  const newCard = {
     id: cardId,
     title: taskTitle,
     creationTime: creationTime,
@@ -47,9 +48,7 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
     short_title = short_title + "....";
   }
 
-  taskItems.sort(function(x, y) {
-    return x.done === y.done ? 0 : x.done ? 1 : -1;
-  });
+  taskItems = sortingOfTasks(taskItems);
 
   const columnDiv = document.createElement("div");
   columnDiv.setAttribute("class", "column");
@@ -75,23 +74,22 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
   const newTitle = document.createTextNode(short_title);
   titleDiv.appendChild(newTitle);
 
-  const ulDiv = document.createElement("ul");
+  let ulDiv = document.createElement("ul");
   ulDiv.setAttribute("id", "list");
 
+  const closeExp = document.getElementsByClassName("closeExp")[0];
+  closeExp.addEventListener("click", function(e) {
+    const localStorageData = getDataFromLocalStorage("todoList");
+    taskItems = localStorageData[cardId].tasks;
+    taskItems = sortingOfTasks(taskItems);
+    ulDiv = createUnorderedListElements(taskItems, ulDiv);
+  });
+
   taskItems.forEach(element => {
-    //for each starts here
-    if (cardSize < 4) {
-      const newTodo = document.createElement("li");
-      let addTask = document.createTextNode(element.name);
-      newTodo.setAttribute("id", "listItem");
-      chars = chars + element.name.length;
-      newTodo.appendChild(addTask);
-      ulDiv.appendChild(newTodo);
-      cardSize++;
-    }
     newCard.tasks.push(element);
-    k++;
-  }); // end of forEach loop
+  });
+
+  ulDiv = createUnorderedListElements(taskItems, ulDiv);
   if (taskItems.length > 3) {
     const largeCardIndicator = document.createElement("span");
     const enlarger = document.createTextNode(" . . . ");
@@ -112,20 +110,35 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
 
   return newCard;
 }
+function createUnorderedListElements(taskItems, ulDiv) {
+  ulDiv.innerHTML = "";
+  let cardSize = 1;
+  taskItems.forEach(element => {
+    if (cardSize < 4) {
+      const newTodo = document.createElement("li");
+      let addTask = document.createTextNode(element.name);
+      newTodo.setAttribute("id", "listItem");
+      newTodo.appendChild(addTask);
+      ulDiv.appendChild(newTodo);
+      cardSize++;
+    }
+  });
+  return ulDiv;
+}
 
 //when submit button gets clicked
 function addTask() {
   let taskTitle = document.getElementById("titleInput").value;
   taskTitle.toUpperCase();
   const dateTime = getDateTime();
-  if (taskTitle == "") {
+  if (taskTitle === "") {
     taskTitle = "My Todo";
   }
   if (taskItems.length == 0) {
-    document.getElementById("emptyListErr").innerHTML = "Please add tasks!";
+    document.getElementById("emptyListError").innerHTML = "Please add tasks!";
   } else {
     taskTitle = trimExtraSpaces(taskTitle);
-    document.getElementById("emptyListErr").innerHTML = "";
+    document.getElementById("emptyListError").innerHTML = "";
     const newCard = createCard(taskItems, taskTitle, dateTime, assignCardId());
     console.log("return here");
     pushCardInLocalstorage(newCard);
@@ -136,18 +149,16 @@ function addTask() {
 function trimExtraSpaces(inputString) {
   return inputString.replace(/^\s+|\s+$/g, "");
 }
-
-let taskItems = [];
 //adding to modal list
 function addToList() {
   let toDo = document.querySelector("#input").value;
   if (toDo == "") {
-    document.getElementById("emptyTaskErr").innerHTML =
+    document.getElementById("emptyTaskError").innerHTML =
       "Please enter a valid task !";
   } else {
     toDo = trimExtraSpaces(toDo);
-    document.getElementById("emptyTaskErr").innerHTML = "";
-    document.getElementById("emptyListErr").innerHTML = "";
+    document.getElementById("emptyTaskError").innerHTML = "";
+    document.getElementById("emptyListError").innerHTML = "";
 
     let createTodo = document.createElement("li");
     createTodo.setAttribute("id", "newTask");
@@ -183,6 +194,14 @@ function searchCardFromList(searchItem) {
       break;
     }
   }
+
+  // let searchedCards = localStorageData.filter(function(e) {
+  //   let cardTitle = e.title;
+  //   return cardTitle.includes(searchItem);
+  // });
+  // console.log(searchedCards);
+  // setDataInLocalStorage(searchedCards, "searchedList");
+  // init("searchedList");
 }
 
 let searchItem = document.getElementById("searchCard");
@@ -197,14 +216,12 @@ var span = document.getElementsByClassName("closing")[0];
 
 function openAddTaskModal() {
   taskItems = [];
-  localStorage.setItem("openAddCard", JSON.stringify(1));
   document.getElementById("overlay").style = "display:block";
   modal.style.display = "block";
 }
 
 span.onclick = function() {
   modal.style.display = "none";
-  localStorage.setItem("openAddCard", JSON.stringify(0));
   document.getElementById("overlay").style = "display:none";
 };
 window.onclick = function(event) {
@@ -216,11 +233,9 @@ window.onclick = function(event) {
 
 var closeExp = document.getElementsByClassName("closeExp")[0];
 closeExp.onclick = function() {
-  location.reload();
   document.querySelector(".exp").innerHTML = "";
-  myModalExp.style.display = "none";
+  expandCardModal.style.display = "none";
   document.getElementById("overlay").style = "display:none";
-  localStorage.setItem("cardViewed", JSON.stringify(-1));
 };
 
 function findCurrentCard(currCardId) {
@@ -243,17 +258,14 @@ function editCard(currCardId) {
   };
   localStorageData[index].tasks.push(newTask);
   setDataInLocalStorage(localStorageData, "todoList");
-  alert("Task added successfully!");
-  location.reload();
+  return newTask;
 }
 
 function expandCard(currCardId) {
   document.querySelector(".dateTimeExp").innerHTML = "";
   document.getElementById("overlay").style = "display:block";
-  document.getElementById("myModalExp").style.display = "block";
-  localStorage.setItem("cardViewed", JSON.stringify(currCardId));
+  document.getElementById("expandCardModal").style.display = "block";
   const localStorageData = getDataFromLocalStorage("todoList");
-  let k = 0;
 
   const index = findCurrentCard(currCardId);
   const taskTitle = localStorageData[index].title;
@@ -285,12 +297,37 @@ function expandCard(currCardId) {
     cardDiv.appendChild(editList);
   });
 
-  const ulDiv = document.createElement("ul");
+  let ulDiv = document.createElement("ul");
   ulDiv.setAttribute("id", "list");
 
   let displayDateTime = document.createElement("div");
   displayDateTime.innerHTML = creationTime;
 
+  ulDiv = addTasksToExpandCardList(ulDiv, taskItems, currCardId);
+  editList.addEventListener("keydown", function(e) {
+    if (e.keyCode === 13) {
+      const newAddedTask = editCard(currCardId);
+      taskItems.push(newAddedTask);
+      addTasksToExpandCardList(ulDiv, taskItems, currCardId);
+      markDone(currCardId);
+    }
+  });
+  cardDiv.appendChild(titleDiv);
+  cardDiv.appendChild(editIcon);
+
+  cardDiv.appendChild(ulDiv);
+  columnDiv.appendChild(cardDiv);
+  document.querySelector(".exp").appendChild(columnDiv);
+  document.querySelector(".dateTimeExp").appendChild(displayDateTime);
+
+  document.getElementById("titleInput").value = "";
+  document.querySelector("#listInput").innerHTML = "";
+  markDone(currCardId);
+}
+
+function addTasksToExpandCardList(ulDiv, taskItems, currCardId) {
+  let k = 0;
+  ulDiv.innerHTML = "";
   taskItems.forEach(element => {
     //for each starts here
     const newTodo = document.createElement("li");
@@ -308,24 +345,8 @@ function expandCard(currCardId) {
     newTodo.appendChild(chk);
     newTodo.appendChild(addTask);
     ulDiv.appendChild(newTodo);
-  }); // end of forEach loop
-
-  editList.addEventListener("keydown", function(e) {
-    if (e.keyCode === 13) {
-      editCard(currCardId);
-    }
   });
-  cardDiv.appendChild(titleDiv);
-  cardDiv.appendChild(editIcon);
-
-  cardDiv.appendChild(ulDiv);
-  columnDiv.appendChild(cardDiv);
-  document.querySelector(".exp").appendChild(columnDiv);
-  document.querySelector(".dateTimeExp").appendChild(displayDateTime);
-
-  document.getElementById("titleInput").value = "";
-  document.querySelector("#listInput").innerHTML = "";
-  markDone(currCardId);
+  return ulDiv;
 }
 
 function removeCard(currCardId) {
@@ -373,7 +394,6 @@ const INPUT_ELEMENT_CHECKBOX = 1;
 function strikeThroughItem(currCardId, itemNumber, status) {
   const refernce = `column${currCardId}${itemNumber}`;
   const listItem = document.querySelectorAll(`.${refernce}`);
-
   if (status) {
     listItem[LI_ELEMENT_ITEM_TITLE].style.textDecoration = "line-through";
     listItem[INPUT_ELEMENT_CHECKBOX].checked = true;
@@ -394,7 +414,6 @@ function changeStatusOfTask(currCardId, taskNumber) {
     localStorageData[index].tasks[taskNumber].done = true;
     status = true;
   }
-
   setDataInLocalStorage(localStorageData, "todoList");
   strikeThroughItem(currCardId, taskNumber, status);
 }
@@ -426,6 +445,6 @@ function addFirstCardMsg() {
   if (!localStorageData || localStorageData.length == 0) {
     document.getElementById("emptyBoard").innerHTML =
       "Add your first task here!";
-    return;
+    return -1;
   }
 }
