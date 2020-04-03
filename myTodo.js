@@ -1,10 +1,15 @@
-window.onload = init("todoList");
+const TITLE_DISPLAY_LIMIT = 40;
+const NUM_OF_TASKS_ON_CARD = 3;
+const TITLE_CHARS_EXCEED_LIMIT = 70;
 
+window.onload = init("todoList");
 let taskItems = [];
 
 function init(key) {
+  colorChange();
+
   const dataPresent = addFirstCardMsg();
-  if (dataPresent == -1) return;
+  if (dataPresent === -1) return;
   const localStorageData = getDataFromLocalStorage(key);
   for (let index = 0; index < localStorageData.length; index++) {
     const task = localStorageData[index];
@@ -43,8 +48,8 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
     tasks: []
   };
   let short_title = taskTitle;
-  if (chars > 70) {
-    short_title = taskTitle.slice(0, 40);
+  if (chars > TITLE_CHARS_EXCEED_LIMIT) {
+    short_title = taskTitle.slice(0, TITLE_DISPLAY_LIMIT);
     short_title = short_title + "....";
   }
 
@@ -91,11 +96,12 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
   });
 
   ulDiv = createUnorderedListElements(taskItems, ulDiv);
-  if (taskItems.length > 3) {
-    const largeCardIndicator = document.createElement("span");
+  if (taskItems.length > NUM_OF_TASKS_ON_CARD) {
+    const largeCardIndicator = document.createElement("li");
     const enlarger = document.createTextNode(" . . . ");
+    largeCardIndicator.setAttribute("id", "listItem");
     largeCardIndicator.appendChild(enlarger);
-    zoomDiv.appendChild(largeCardIndicator);
+    ulDiv.appendChild(largeCardIndicator);
   }
 
   cardDiv.appendChild(titleDiv);
@@ -146,6 +152,7 @@ function addTask() {
     pushCardInLocalstorage(newCard);
     span.onclick();
   }
+  colorChange();
 }
 
 function trimExtraSpaces(inputString) {
@@ -189,21 +196,19 @@ function searchCardFromList(searchItem) {
     return 0;
   }
   searchItem.toUpperCase();
-  for (let index = 0; index < localStorageData.length; index++) {
-    let cardTitle = localStorageData[index].title;
-    if (cardTitle.includes(searchItem)) {
-      expandCard(localStorageData[index].id);
-      break;
-    }
+  let searchedCards = localStorageData.filter(function(e) {
+    let cardTitle = e.title;
+    return cardTitle.includes(searchItem);
+  });
+  console.log(searchedCards);
+  setDataInLocalStorage(searchedCards, "searchedList");
+  document.querySelector(".row").innerHTML = "";
+  if (searchedCards.length) {
+    init("searchedList");
+    document.querySelector("#noSearchResults").innerHTML = "";
+  } else {
+    document.querySelector("#noSearchResults").innerHTML = "No reasults found!";
   }
-
-  // let searchedCards = localStorageData.filter(function(e) {
-  //   let cardTitle = e.title;
-  //   return cardTitle.includes(searchItem);
-  // });
-  // console.log(searchedCards);
-  // setDataInLocalStorage(searchedCards, "searchedList");
-  // init("searchedList");
 }
 
 let searchItem = document.getElementById("searchCard");
@@ -367,6 +372,7 @@ function removeCard(currCardId) {
   localStorageData.splice(index, 1);
   setDataInLocalStorage(localStorageData, "todoList");
   addFirstCardMsg();
+  colorChange();
 }
 
 function getDateTime() {
@@ -455,6 +461,19 @@ function addFirstCardMsg() {
     document.getElementById("emptyBoard").innerHTML =
       "Add your first task here!";
     return -1;
+  }
+}
+
+function colorChange() {
+  const localStorageData = getDataFromLocalStorage("todoList");
+  if (localStorageData) {
+    if (localStorageData.length % 2 == 0) {
+      document.getElementById("border").style.backgroundColor =
+        "rgb(139, 124, 206)";
+    } else {
+      document.getElementById("border").style.backgroundColor =
+        "#lightsteelblue";
+    }
   }
 }
 

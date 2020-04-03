@@ -3,7 +3,7 @@
 }
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   background-color: white;
 }
 #list {
@@ -71,16 +71,14 @@ body {
 .exp ul {
   list-style-type: none;
 }
-
+/* 
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;
     display: block;
     margin-bottom: 20px;
   }
-}
-@media only screen and (max-width: 600px) and (min-width: 400px) {
-}
+} */
 .modal {
   top: 10%;
   left: 22%;
@@ -92,7 +90,7 @@ body {
   overflow: scroll;
   margin: 10px auto;
   border-radius: 8px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 .modal-content legend {
@@ -111,10 +109,10 @@ body {
   padding: 10% 20%;
   background: #fdfdfd;
   overflow: auto; /* Enable scroll if needed */
-  margin: 10px auto;
+  /* margin: 10px auto; */
   padding: 4%;
   border-radius: 4%;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   overflow: auto;
 }
 #overlay {
@@ -131,8 +129,8 @@ body {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
   border: none;
-  font-size: 120%;
-  padding: 2%;
+  font-size: 20px;
+  padding: 10px;
   width: 70%;
   margin-left: 15%;
   text-align: center;
@@ -216,7 +214,9 @@ input[type="checkbox"]:checked + label {
 #editCard {
   font-size: 15px;
   /* margin-left: 10%; */
-  width: 100%;
+  padding-left: 10px;
+  margin-left: 15%;
+  width: 70%;
   border: black solid 1px;
 }
 #icon {
@@ -224,8 +224,7 @@ input[type="checkbox"]:checked + label {
   margin-left: 2%;
   margin-right: 1%;
   position: relative;
-  /* Adjust these values accordingly */
-  top: 10px;
+  top: 40px;
   left: 5px;
   height: 35px;
   width: 35px;
@@ -248,11 +247,12 @@ input[type="checkbox"]:checked + label {
   margin-right: 115px;
   left: 5px;
   height: 35px;
+  margin-top: 24%;
   width: 35px;
 }
 #navSearch {
   /* background-color: red; */
-  bottom: 100px;
+  /* bottom: 100px; */
 }
 #searchCard {
   color: #000;
@@ -295,15 +295,13 @@ input[type="checkbox"]:checked + label {
   /* top : 10px; */
   margin-left: 2%;
   margin-right: 1.5%;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   display: block;
   color: #161515;
   text-align: center;
   /* padding: 10px; */
   text-decoration: none;
 }
-
-/* modal exp */
 
 /* The Modal (background) */
 .modalExp {
@@ -316,7 +314,7 @@ input[type="checkbox"]:checked + label {
   height: 80%;
   margin: 10px auto;
   border-radius: 8px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 /* Modal Content */
@@ -331,7 +329,7 @@ input[type="checkbox"]:checked + label {
   margin: 10px auto;
   padding: 2%;
   border-radius: 8px;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   overflow: auto;
 }
 
@@ -349,12 +347,27 @@ input[type="checkbox"]:checked + label {
   cursor: pointer;
 }
 
+#btnExp {
+  color: #ea9085;
+  float: right;
+  font-size: 100%;
+  padding-top: 45%;
+  font-weight: bold;
+  padding-right: 0%;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dateTimeExp {
+  padding-left: 35%;
+}
+
 .cardModal {
   margin-left: 45%;
   margin-right: 5%;
-  margin-bottom: 13%;
+  margin-bottom: 3%;
   color: #116979;
-  margin-top: 38%;
+  margin-top: 1%;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   padding: 6%;
   text-decoration-color: #e0e9e7;
@@ -366,49 +379,15 @@ input[type="checkbox"]:checked + label {
   /* width: 400px; */
   width: 250%;
 }
-#btnExp {
-  color: #ea9085;
-  float: right;
-  font-size: 100%;
-  padding-top: 45%;
-  font-weight: bold;
-  padding-right: 0%;
-  cursor: pointer;
-}
-
-.dateTimeExp {
-  padding-left: 35%;
-}
-@media screen and (max-width: 400px) {
-  .modal {
-    display: none;
-    z-index: 1;
+/* 
+@media only screen and (max-width: 500px) {
+  .column {
     width: 100%;
-    top: 10%;
-    position: fixed;
-    height: 100%;
-    overflow: scroll;
-    margin: 10px auto;
-    border-radius: 8px;
-    font-family: Georgia, "Times New Roman", Times, serif;
+    display: block;
+    margin-bottom: 20px;
   }
+} */
 
-  .modal-content {
-    width: 100%;
-    z-index: 1000;
-    height: 70%;
-    margin-bottom: 5%;
-    margin-bottom: 5%;
-    overflow: scroll;
-    /* padding: 10px 20px; */
-    padding: 10% 20%;
-    background: #fdfdfd;
-    overflow: auto; /* Enable scroll if needed */
-    border-radius: 4%;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    overflow: auto;
-  }
-}
 #appName {
   color: #dd7797;
 }
@@ -427,4 +406,161 @@ input[type="checkbox"]:checked + label {
 #emptyListError {
   color: red;
   padding-left: 40%;
+}
+#noSearchResults {
+  padding-left: 43%;
+}
+#logo {
+  margin-bottom: 3%;
+}
+@-ms-viewport {
+  width: device-width;
+}
+
+@media all and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    /* margin-bottom: 20px; */
+  }
+
+  .modal {
+    display: none;
+    z-index: 1;
+    width: 70%;
+    top: 10%;
+    position: fixed;
+    /* margin-left: 0%; */
+    padding-right: 8%;
+    right: 100%;
+    height: 100%;
+    overflow: scroll;
+    border-radius: 8px;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  }
+
+  .modal-content {
+    width: 110%;
+    z-index: 1000;
+    height: 70%;
+    margin-bottom: 5%;
+    overflow: scroll;
+    margin-right: 40%;
+    /* padding: 10px 20px;
+    padding: 10% 20%; */
+    background: #fdfdfd;
+    border-radius: 4%;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    overflow: auto;
+  }
+
+  .modal-content button {
+    display: block;
+    padding: 3% 5% 3% 3.5%;
+    color: #fff;
+    background: #1abc9c;
+    font-size: 90%;
+    font-style: normal;
+    width: 30%;
+    border-radius: 5%;
+    border: 1% solid #16a085;
+    border-width: 0.5% 0.5% 1%;
+    text-align: center;
+  }
+  .modal-content input[type="text"] {
+    font-family: Georgia;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    background-color: #e8eeef;
+    margin-bottom: 30px;
+    outline: none;
+  }
+  .modal-content legend {
+    font-size: 90%;
+    margin-bottom: 3%;
+    margin-right: 100px;
+    text-align: center;
+  }
+
+  .modal-content .number {
+    background: #d45079;
+    color: #fff;
+    height: auto;
+    width: 15%;
+    display: inline-block;
+    margin-right: 40%;
+    text-align: center;
+    border-radius: 15px 15px 15px 0px;
+  }
+
+  .modalExp {
+    top: 10%;
+    left: 10%;
+    display: none;
+    z-index: 1;
+    width: 80%;
+    border-radius: 8px;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  }
+
+  .modalExp-content {
+    width: 100%;
+    height: 90%;
+    margin-bottom: 5%;
+    background-color: #ceecda;
+    overflow: auto;
+    border-radius: 8px;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    overflow: auto;
+  }
+
+  .closeExp {
+    color: #aaaaaa;
+    float: right;
+    font-size: 170%;
+    font-weight: bold;
+  }
+
+  .closeExp:hover,
+  .closeExp:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #btnExp {
+    color: #ea9085;
+    float: right;
+    font-size: 100%;
+    padding-top: 45%;
+    font-weight: bold;
+    padding-right: 0%;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .dateTimeExp {
+    padding-left: 35%;
+  }
+
+  .cardModal {
+    margin-left: 30px;
+    margin-bottom: 0.5%;
+    color: #116979;
+    margin-top: 0.5%;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-decoration-color: #e0e9e7;
+    font-size: 120%;
+    border-radius: 3%;
+    background-color: white;
+    opacity: 2;
+    height: auto;
+    width: 80%;
+  }
 }
