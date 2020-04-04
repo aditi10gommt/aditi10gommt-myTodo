@@ -254,11 +254,33 @@ input[type="checkbox"]:checked + label {
   /* background-color: red; */
   /* bottom: 100px; */
 }
+/* 
+.searchIcon:before {
+  font-size: inherit;
+  content: "\E010";
+  display: inline-block;
+  font-family: Slack v2;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+} */
 #searchCard {
-  color: #000;
+  /* color: #000;*/
   margin-left: 68%;
-  bottom: 183px;
+  /* bottom: 183px;  */
   /* margin-top: 30px; */
+
+  display: inline-flex;
+  align-items: center;
+  flex-grow: 1;
+  position: relative;
+  cursor: pointer;
+  --saf-0: rgba(var(--sk_primary_foreground, 29, 28, 29), 0.3);
+  border: 1px solid var(--saf-0);
+  height: 34px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 #plus {
   padding: 5px;
