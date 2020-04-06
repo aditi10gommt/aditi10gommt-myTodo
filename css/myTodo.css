@@ -184,7 +184,9 @@ body {
 .modal-content button:focus {
   outline: 0;
 }
-
+#submitBtn {
+  text-decoration: none;
+}
 .close {
   color: #aaaaaa;
   float: right;
@@ -250,21 +252,6 @@ input[type="checkbox"]:checked + label {
   margin-top: 38%;
   width: 35px;
 }
-#navSearch {
-  /* background-color: red; */
-  /* bottom: 100px; */
-}
-/* 
-.searchIcon:before {
-  font-size: inherit;
-  content: "\E010";
-  display: inline-block;
-  font-family: Slack v2;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1;
-} */
 #searchCard {
   /* color: #000;*/
   margin-left: 68%;
@@ -438,7 +425,14 @@ input[type="checkbox"]:checked + label {
 @-ms-viewport {
   width: device-width;
 }
+#logout {
+  width: 41px;
+  /* top: 200px; */
+  margin-left: -105.5%;
+  margin-top: 7px;
+}
 
+/* Mobile view css */
 @media all and (max-width: 600px) {
   .column {
     width: 100%;
@@ -585,10 +579,51 @@ input[type="checkbox"]:checked + label {
     height: auto;
     width: 80%;
   }
+  #taskicon {
+    float: right;
+    position: relative;
+    bottom: 69px;
+    margin-right: 118px;
+    left: 100px;
+    height: 35px;
+    margin-top: 38%;
+    width: 35px;
+  }
+  #navbar input[type="text"] {
+    top: 23px;
+    background-color: white;
+    border: 1px solid rgb(17, 16, 16);
+    font-size: 15px;
+    float: center;
+    display: block;
+    text-align: left;
+    /* margin: 0; */
+    padding: 1%;
+    width: 15%;
+  }
+  #searchCard {
+    color: #000;
+    margin-left: 58%;
+    /* bottom: 183px; */
+    /* margin-top: 30px; */
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+    cursor: pointer;
+    --saf-0: rgba(var(--sk_primary_foreground, 29, 28, 29), 0.3);
+    border: 1px solid var(--saf-0);
+    height: 34px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  #logout {
+    width: 41px;
+    /* top: 200px; */
+    right: -79px;
+    margin-left: -38.5%;
+    margin-top: 18px;
+  }
 }
-#logout {
-  width: 41px;
-  /* top: 200px; */
-  margin-right: 203.5%;
-  margin-top: 7px;
-}
+
+/* end of mobile view code */

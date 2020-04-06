@@ -2,16 +2,22 @@ const TITLE_DISPLAY_LIMIT = 40;
 const NUM_OF_TASKS_ON_CARD = 3;
 const TITLE_CHARS_EXCEED_LIMIT = 70;
 const CURRENT_USER = JSON.parse(localStorage.getItem("currentUser"));
+const key = "usersList";
+const ALL_USERS = getDataFromLocalStorage(key);
 
-window.onload = init("usersList");
+const userIndex = getCurrentUserIndex();
+const currUserTodos = getCurrUserTodosFromLocalStorage();
+
+window.onload = init(currUserTodos);
 let taskItems = [];
-function init(key) {
-  //   colorChange();
+function init(currUserTodos) {
+  colorChange();
   //   let user = document.location.search.replace(/^.*?\=/, "");
   //   document.querySelector("#user").innerHTML = `welcome ${user}`;
   const dataPresent = addFirstCardMsg();
-  if (dataPresent === -1) return;
-  const currUserTodos = getCurrUserTodosFromLocalStorage(key);
+  if (dataPresent === -1) {
+    return;
+  }
   for (let index = 0; index < currUserTodos.length; index++) {
     const task = currUserTodos[index];
     const taskTitle = task.title;
@@ -19,14 +25,14 @@ function init(key) {
     const taskItems = task.tasks;
     const cardId = task.id;
     createCard(taskItems, taskTitle, creationTime, cardId);
+    colorChange();
   }
 }
 
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("closing")[0];
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("closing")[0];
 
 function openAddTaskModal() {
-  getCurrUserTodosFromLocalStorage("usersList");
   taskItems = [];
   document.getElementById("overlay").style = "display:block";
   modal.style.display = "block";
@@ -35,12 +41,9 @@ function openAddTaskModal() {
 span.onclick = function () {
   modal.style.display = "none";
   document.getElementById("overlay").style = "display:none";
-  // location.replace(
-  //   `file:///Users/aditi.laturkar/Desktop/GOMMT/myTodo/myTodo.html?userName=${CURRENT_USER}`
-  // );
 };
 
-let input = document.getElementById("input");
+const input = document.getElementById("input");
 input.addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
     addToList();
@@ -53,6 +56,13 @@ function sortingOfTasks(taskItems) {
   });
   return taskItems;
 }
+const closeExp = document.getElementsByClassName("closeExp")[0];
+closeExp.onclick = function () {
+  document.querySelector(".exp").innerHTML = "";
+  expandCardModal.style.display = "none";
+  document.getElementById("overlay").style = "display:none";
+};
+
 function createCard(taskItems, taskTitle, creationTime, cardId) {
   let chars = taskTitle.length;
 
@@ -69,7 +79,6 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
   }
 
   taskItems = sortingOfTasks(taskItems);
-  console.log(taskItems);
 
   const columnDiv = document.createElement("div");
   columnDiv.setAttribute("class", "column");
@@ -101,12 +110,21 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
 
   const closeExp = document.getElementsByClassName("closeExp")[0];
   closeExp.addEventListener("click", function (e) {
-    const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-    console.log(currUserTodos + "jnnn");
     if (!currUserTodos) return;
-    taskItems = currUserTodos[cardId].tasks;
-    taskItems = sortingOfTasks(taskItems);
-    ulDiv = createUnorderedListElements(taskItems, ulDiv);
+    else {
+      const cardIndex = findCurrentCard(newCard.id);
+      if (!cardIndex) return;
+      taskItems = currUserTodos[cardIndex].tasks;
+      taskItems = sortingOfTasks(taskItems);
+      ulDiv = createUnorderedListElements(taskItems, ulDiv);
+      if (taskItems.length > NUM_OF_TASKS_ON_CARD) {
+        const largeCardIndicator = document.createElement("li");
+        const enlarger = document.createTextNode(" . . . ");
+        largeCardIndicator.setAttribute("id", "listItem");
+        largeCardIndicator.appendChild(enlarger);
+        ulDiv.appendChild(largeCardIndicator);
+      }
+    }
   });
 
   taskItems.forEach((element) => {
@@ -165,11 +183,16 @@ function addTask() {
   } else {
     taskTitle = trimExtraSpaces(taskTitle);
     document.getElementById("emptyListError").innerHTML = "";
-    const newCard = createCard(taskItems, taskTitle, dateTime, assignCardId());
-    pushDataInLocalstorage(newCard, "usersList");
+    const newCardData = createCard(
+      taskItems,
+      taskTitle,
+      dateTime,
+      assignCardId()
+    );
+    pushDataInLocalstorage(newCardData);
     span.onclick();
   }
-  //   colorChange();
+  colorChange();
 }
 
 //adding to modal list
@@ -183,13 +206,13 @@ function addToList() {
     document.getElementById("emptyTaskError").innerHTML = "";
     document.getElementById("emptyListError").innerHTML = "";
 
-    let createTodo = document.createElement("li");
+    const createTodo = document.createElement("li");
     createTodo.setAttribute("id", "newTask");
-    let addTodo = document.createTextNode(toDo);
+    const addTodo = document.createTextNode(toDo);
     createTodo.appendChild(addTodo);
     document.querySelector("#listInput").appendChild(createTodo);
     document.querySelector("#input").value = "";
-    let newTask = {
+    const newTask = {
       name: toDo,
       done: false,
     };
@@ -197,44 +220,16 @@ function addToList() {
   }
 }
 
-function findCurrentCard(currCardId, allUsers) {
-  const userIndex = getCurrentUserIndex();
-  console.log(allUsers[0].userName);
-  const todos = allUsers[userIndex].todos;
-  for (let index = 0; index < todos.length; index++) {
-    if (currCardId == todos[index].id) {
-      return index;
-    }
-  }
-}
-
-var closeExp = document.getElementsByClassName("closeExp")[0];
-closeExp.onclick = function () {
-  document.querySelector(".exp").innerHTML = "";
-  expandCardModal.style.display = "none";
-  document.getElementById("overlay").style = "display:none";
-  //   location.replace(
-  //     `file:///Users/aditi.laturkar/Desktop/GOMMT/myTodo/myTodo.html?userName=${CURRENT_USER}`
-  //   );
-};
-
 function editCard(currCardId) {
-  const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
-
   let val = document.getElementById("editCard").value;
   val = trimExtraSpaces(val);
-  const index = findCurrentCard(currCardId, allUsers);
-  let newTask = {
+  const newTask = {
     name: val,
     done: false,
   };
-  const card = currUserTodos[index];
-  card.tasks.push(newTask);
 
-  const userIndex = getCurrentUserIndex();
-  allUsers[userIndex].todos = currUserTodos;
-  setCurrUserDataInLocalStorage(allUsers, "usersList");
+  ALL_USERS[userIndex].todos = currUserTodos;
+  setCurrUserDataInLocalStorage(ALL_USERS, "usersList");
   document.getElementById("editCard").value = "";
   return newTask;
 }
@@ -243,21 +238,18 @@ function expandCard(currCardId) {
   document.querySelector(".dateTimeExp").innerHTML = "";
   document.getElementById("overlay").style = "display:block";
   document.getElementById("expandCardModal").style.display = "block";
-  //   const localStorageData = getDataFromLocalStorage("todoList");
-  const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
 
-  const index = findCurrentCard(currCardId, allUsers);
+  const index = findCurrentCard(currCardId);
   const card = currUserTodos[index];
   const taskTitle = card.title;
   const taskItems = card.tasks;
   const creationTime = card.creationTime;
 
-  let columnDiv = document.createElement("div");
+  const columnDiv = document.createElement("div");
   columnDiv.setAttribute("class", "column");
   columnDiv.setAttribute("id", `column${currCardId}`);
 
-  let cardDiv = document.createElement("div");
+  const cardDiv = document.createElement("div");
   cardDiv.setAttribute("class", "cardModal");
 
   const titleDiv = document.createElement("div");
@@ -281,7 +273,7 @@ function expandCard(currCardId) {
   let ulDiv = document.createElement("ul");
   ulDiv.setAttribute("id", "list");
 
-  let displayDateTime = document.createElement("div");
+  const displayDateTime = document.createElement("div");
   displayDateTime.innerHTML = creationTime;
 
   ulDiv = addTasksToExpandCardList(ulDiv, taskItems, currCardId);
@@ -331,26 +323,18 @@ function addTasksToExpandCardList(ulDiv, taskItems, currCardId) {
 }
 
 function changeStatusOfTask(currCardId, taskNumber) {
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
-  const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-  const userIndex = getCurrentUserIndex();
-  const index = findCurrentCard(currCardId, allUsers);
+  const index = findCurrentCard(currCardId);
   let status = currUserTodos[index].tasks[taskNumber].done;
-  if (status) {
-    currUserTodos[index].tasks[taskNumber].done = false;
-    status = false;
-  } else {
-    currUserTodos[index].tasks[taskNumber].done = true;
-    status = true;
-  }
-  allUsers[userIndex].todos = currUserTodos;
-  setCurrUserDataInLocalStorage(allUsers, "usersList");
+  status = !status;
+  currUserTodos[index].tasks[taskNumber].done = status;
+  ALL_USERS[userIndex].todos = currUserTodos;
+  setCurrUserDataInLocalStorage(ALL_USERS, "usersList");
   strikeThroughItem(currCardId, taskNumber, status);
 }
-const LI_ELEMENT_ITEM_TITLE = 0;
-const INPUT_ELEMENT_CHECKBOX = 1;
 
 function strikeThroughItem(currCardId, itemNumber, status) {
+  const LI_ELEMENT_ITEM_TITLE = 0;
+  const INPUT_ELEMENT_CHECKBOX = 1;
   const refernce = `column${currCardId}${itemNumber}`;
   const listItem = document.querySelectorAll(`.${refernce}`);
   if (status) {
@@ -361,12 +345,9 @@ function strikeThroughItem(currCardId, itemNumber, status) {
     listItem[INPUT_ELEMENT_CHECKBOX].checked = false;
   }
 }
-
 function markDone(currCardId) {
   let allTasksDone = 0;
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
-  const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-  const index = findCurrentCard(currCardId, allUsers);
+  const index = findCurrentCard(currCardId);
   const taskItemsLength = currUserTodos[index].tasks.length;
   for (let j = 0; j < taskItemsLength; j++) {
     if (currUserTodos[index].tasks[j].done) {
@@ -386,104 +367,92 @@ function markDone(currCardId) {
 }
 
 function removeCard(currCardId) {
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
   const remCol = `column${currCardId}`;
   const element = document.getElementById(remCol);
-  let todos = getCurrUserTodosFromLocalStorage("usersList");
   element.remove();
-  const index = findCurrentCard(currCardId, allUsers);
-  todos.splice(index, 1);
-  const userIndex = getCurrentUserIndex();
-  allUsers[userIndex].todos = todos;
-  setCurrUserDataInLocalStorage(allUsers, "usersList");
+  const index = findCurrentCard(currCardId);
+  currUserTodos.splice(index, 1);
+  ALL_USERS[userIndex].todos = currUserTodos;
+  setCurrUserDataInLocalStorage(ALL_USERS, "usersList");
   addFirstCardMsg();
-  //   colorChange();
+  colorChange();
 }
-
-function getDateTime() {
-  let today = new Date();
-  let date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  let time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  let dateTime = date + "\xa0\xa0\xa0\xa0\xa0" + time;
-  return dateTime;
-}
-
-function trimExtraSpaces(inputString) {
-  return inputString.replace(/^\s+|\s+$/g, "");
-}
-
-function assignCardId() {
-  const todos = getCurrUserTodosFromLocalStorage("usersList");
-  if (!todos || todos.length == 0) {
+function searchCardFromList(searchItem) {
+  if (!currUserTodos || currUserTodos.length == 0) {
     return 0;
   }
-  if (todos) {
-    const length = todos.length;
-    return todos[length - 1].id + 1;
+  searchItem = searchItem.toUpperCase();
+  let searchedCards = currUserTodos.filter(function (e) {
+    const cardTitle = e.title;
+    return cardTitle.includes(searchItem);
+  });
+
+  // allUsers[userIndex].todos = searchedCards;
+  // setCurrUserDataInLocalStorage(allUsers, "searchedList");
+  document.querySelector(".row").innerHTML = "";
+  if (searchedCards.length) {
+    init(searchedCards);
+    document.querySelector("#noSearchResults").innerHTML = "";
+  } else {
+    document.querySelector("#noSearchResults").innerHTML = "No match found!";
+  }
+}
+function colorChange() {
+  if (currUserTodos.length % 2) {
+    document.getElementById("border").style.backgroundColor =
+      "rgb(142, 152, 207)";
+  } else {
+    document.getElementById("border").style.backgroundColor = "lightsteelblue";
   }
 }
 
-function getCurrentUserIndex() {
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
-  if (!allUsers || allUsers.length == 0) return;
-  for (let i = 0; i < allUsers.length; i++) {
-    if (allUsers[i].userName == CURRENT_USER) return i;
-  }
-}
-function getCurrUserTodosFromLocalStorage(key) {
-  const allUsers = JSON.parse(localStorage.getItem(key));
-  if (!allUsers || allUsers.length == 0) return;
-  const userIndex = getCurrentUserIndex();
-  return allUsers[userIndex].todos;
-}
-
-function pushDataInLocalstorage(newCard, key) {
-  const allUsers = JSON.parse(localStorage.getItem(key));
-  const userIndex = getCurrentUserIndex();
-  let presentCards = allUsers[userIndex].todos || [];
+function pushDataInLocalstorage(newCard) {
+  const presentCards = ALL_USERS[userIndex].todos || [];
   presentCards.push(newCard);
-  localStorage.setItem(key, JSON.stringify(allUsers));
-
+  localStorage.setItem(key, JSON.stringify(ALL_USERS));
   return;
 }
-
 function setCurrUserDataInLocalStorage(localStorageData, key) {
   localStorageData = JSON.stringify(localStorageData);
   localStorage.setItem(key, localStorageData);
 }
+function trimExtraSpaces(inputString) {
+  return inputString.replace(/^\s+|\s+$/g, "");
+}
+
+function getDateTime() {
+  const today = new Date();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + "\xa0\xa0\xa0\xa0\xa0" + time;
+  return dateTime;
+}
+
+function assignCardId() {
+  if (!currUserTodos || currUserTodos.length == 0) {
+    return 0;
+  }
+  if (currUserTodos) {
+    const length = currUserTodos.length;
+    return currUserTodos[length - 1].id + 1;
+  }
+}
 
 function addFirstCardMsg() {
-  let todos = getCurrUserTodosFromLocalStorage("usersList");
-  if (!todos || todos.length == 0) {
+  if (!currUserTodos || currUserTodos.length == 0) {
     document.getElementById("emptyBoard").innerHTML =
       "Add your first task here!";
     return -1;
   }
 }
-function searchCardFromList(searchItem) {
-  const currUserTodos = getCurrUserTodosFromLocalStorage("usersList");
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
-  const userIndex = getCurrentUserIndex();
 
-  if (!currUserTodos || currUserTodos.length == 0) {
-    return 0;
-  }
-  searchItem = searchItem.toUpperCase();
-  console.log(searchItem);
-  let searchedCards = currUserTodos.filter(function (e) {
-    let cardTitle = e.title;
-    return cardTitle.includes(searchItem);
-  });
-  allUsers[userIndex].todos = searchedCards;
-  setCurrUserDataInLocalStorage(allUsers, "searchedList");
-  document.querySelector(".row").innerHTML = "";
-  if (searchedCards.length) {
-    init("searchedList");
-    document.querySelector("#noSearchResults").innerHTML = "";
-  } else {
-    document.querySelector("#noSearchResults").innerHTML = "No match found!";
+function findCurrentCard(currCardId) {
+  for (let index = 0; index < currUserTodos.length; index++) {
+    if (currCardId == currUserTodos[index].id) {
+      return index;
+    }
   }
 }
 
@@ -500,7 +469,6 @@ function onRouteChanged() {
   let cardId;
   if (hash[1] == "e") {
     cardId = hash.slice(11);
-    console.log(cardId);
     hash = "#expandCard";
   }
 

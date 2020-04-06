@@ -1,13 +1,13 @@
 function registerUser() {
   document.querySelector("#userNameError").innerHTML = "";
   signupForm = document.querySelector("#signupForm");
-  let allUsers = JSON.parse(localStorage.getItem("usersList"));
+  const allUsers = JSON.parse(localStorage.getItem("usersList"));
   const name = signupForm.userName.value;
   if (!allUsers || allUsers.length == 0) {
     allUsers = [];
   }
 
-  let duplicateUserName = allUsers.filter(function (e) {
+  const duplicateUserName = allUsers.filter(function (e) {
     return e.userName == name;
   });
   if (!duplicateUserName || duplicateUserName.length == 0) {
@@ -23,7 +23,7 @@ function registerUser() {
 }
 
 function createUser(name, email, password) {
-  let user = {
+  const user = {
     userName: name,
     password: password,
     emailId: email,
@@ -33,7 +33,7 @@ function createUser(name, email, password) {
 }
 
 function pushDataInLocalstorage(localStorageData, key) {
-  let oldData = JSON.parse(localStorage.getItem(key)) || [];
+  const oldData = JSON.parse(localStorage.getItem(key)) || [];
   oldData.push(localStorageData);
   localStorageData = JSON.stringify(oldData);
   localStorage.setItem(key, localStorageData);
