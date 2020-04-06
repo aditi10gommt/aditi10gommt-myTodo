@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Sign up form</title>
+    <link rel="stylesheet" href="css/signup.css" />
+  </head>
+  <body>
+    <div class="signup">
+      <div class="signup-screen">
+        <div class="app-title">
+          <h1>Sign - up</h1>
+        </div>
+        <form id="signupForm">
+          <div class="signup-form">
+            <div class="control-group">
+              <input
+                type="text"
+                autocomplete="off"
+                name="userName"
+                class="login-field"
+                value=""
+                placeholder="username"
+                id="login-name"
+              />
+              <p id="userNameError"></p>
+              <!-- <label class="login-field-icon fui-user" for="login-name"></label> -->
+            </div>
+
+            <div class="control-group">
+              <input
+                type="email"
+                name="email"
+                class="login-field"
+                value=""
+                placeholder="email Id"
+                id="login-name"
+              />
+              <!-- <label class="login-field-icon fui-user" for="login-name"></label> -->
+            </div>
+            <div class="control-group">
+              <input
+                type="password"
+                name="password"
+                class="login-field"
+                value=""
+                placeholder="password"
+                id="login-pass"
+              />
+              <!-- <label class="login-field-icon fui-lock" for="login-pass"></label> -->
+            </div>
+            <a
+              class="btn btn-primary btn-large btn-block"
+              onclick="registerUser()"
+              >Sign up</a
+            >
+          </div>
+        </form>
+        <br />
+        <p style="padding-left: 38px;">Already have an account?</p>
+        <a href="login.html" id="alreadyAccountPresent"> Login Now</a>
+      </div>
+    </div>
+
+    <script src="js/register.js"></script>
+  </body>
+</html>

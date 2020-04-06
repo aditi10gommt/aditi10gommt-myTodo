@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Login form</title>
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <div class="login">
+      <div class="login-screen">
+        <div class="app-title">
+          <h1>Login</h1>
+        </div>
+        <form id="loginForm">
+          <div class="login-form">
+            <div class="control-group">
+              <input
+                type="text"
+                name="userName"
+                autocomplete="off"
+                class="login-field"
+                value=""
+                placeholder="username"
+                id="login-name"
+              />
+              <!-- <label class="login-field-icon fui-user" for="login-name"></label> -->
+              <p id="userNotFoundError"></p>
+            </div>
+
+            <div class="control-group">
+              <input
+                type="password"
+                name="password"
+                class="login-field"
+                value=""
+                placeholder="password"
+                id="login-pass"
+              />
+              <!-- <label class="login-field-icon fui-lock" for="login-pass"></label> -->
+              <p id="passwordError"></p>
+            </div>
+
+            <a
+              class="btn btn-primary btn-large btn-block"
+              onclick="validateUser()"
+              >login</a
+            >
+          </div>
+        </form>
+        <br />
+        <p style="padding-left: 34px;">Don't have an account?</p>
+        <a href="signUp.html" id="signUpFirstLink"> SignUp Now</a>
+      </div>
+    </div>
+    <script src="js/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+
+
+
+
+
+users =[
+user 1 ={
+    userId : ,
+    usernname : ,
+    password : ,
+    email : ,
+    todos : [
+        card 0= {
+            id : ,
+            title : ,
+            creation time : ,
+            tasks : [
+            task 00 {
+                    name : ,
+                    done : 
+                }
+            task 01 {
+                    name : ,
+                    done : 
+                }
+            ]
+        }
+
+    ]
+},
+user 2 ={
+    userId : ,
+    usernname : ,
+    password : ,
+    todos : [
+        card 0= {
+            id : ,
+            title : ,
+            creation time : ,
+            tasks : [
+            task 00 {
+                    name : ,
+                    done : 
+                }
+            task 01 {
+                    name : ,
+                    done : 
+                }
+            ]
+        }
+
+    ]
+}
+
+
+]

@@ -224,7 +224,7 @@ input[type="checkbox"]:checked + label {
   margin-left: 2%;
   margin-right: 1%;
   position: relative;
-  top: 40px;
+  top: 14px;
   left: 5px;
   height: 35px;
   width: 35px;
@@ -244,10 +244,10 @@ input[type="checkbox"]:checked + label {
   float: right;
   position: relative;
   bottom: 83px;
-  margin-right: 115px;
-  left: 5px;
+  margin-right: 118px;
+  left: 95px;
   height: 35px;
-  margin-top: 24%;
+  margin-top: 38%;
   width: 35px;
 }
 #navSearch {
@@ -301,7 +301,7 @@ input[type="checkbox"]:checked + label {
   width: 100%;
 }
 #navbar input[type="text"] {
-  /* margin-top: 2px; */
+  top: 14px;
   background-color: white;
   border: 1px solid rgb(17, 16, 16);
   font-size: 15px;
@@ -585,4 +585,10 @@ input[type="checkbox"]:checked + label {
     height: auto;
     width: 80%;
   }
+}
+#logout {
+  width: 41px;
+  /* top: 200px; */
+  margin-right: 203.5%;
+  margin-top: 7px;
 }

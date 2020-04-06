@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>myTodo</title>
-    <link rel="stylesheet" href="myTodo.css" />
+    <link rel="stylesheet" href="css/myTodo.css" />
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
@@ -12,10 +12,19 @@
   <body>
     <div id="navbar">
       <img id="icon" src="icons/navIcon.svg" />
-      <strong><p id="appName">myTodo</p></strong>
+
+      <a href="./login.html" onclick="logoutUser()"
+        ><img id="logout" src="icons/logout.jpeg" />
+      </a>
+
       <div id="navSearch">
         <!-- <i class="searchIcon" type="search" aria-hidden="true"> </i> -->
-        <input type="text" placeholder="Search.." id="searchCard" />
+        <input
+          type="text"
+          placeholder="Search.."
+          id="searchCard"
+          autocomplete="off"
+        />
 
         <a href="#taskicon" onclick="openAddTaskModal()"
           ><img id="taskicon" src="icons/addTask.jpg" />
@@ -35,7 +44,9 @@
 
     <div id="myModal" class="modal">
       <div class="modal-content">
-        <span class="closing">&times;</span>
+        <a href="#homePage">
+          <span class="closing">&times;</span>
+        </a>
         <legend><span class="number">1</span> Add Task</legend>
         <div class="modal-body">
           <hr />
@@ -69,15 +80,19 @@
 
     <div id="expandCardModal" class="modalExp">
       <div class="modalExp-content">
-        <span class="closeExp">&times;</span>
+        <a href="#homePage">
+          <span class="closeExp">&times;</span>
+        </a>
         <div style="padding-left: 39%;">Created on:</div>
         <div class="dateTimeExp"></div>
         <div class="exp"></div>
       </div>
     </div>
-
     <div id="overlay"></div>
 
-    <script src="myTodo.js"></script>
+    <script src="js/myTodo.js"></script>
+    <!-- <script src="js/dummy.js"></script> -->
+    <script src="js/logout.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>
