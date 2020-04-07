@@ -1,8 +1,10 @@
 function registerUser() {
+  document.querySelector("#blankPasswordError").innerHTML = "";
   document.querySelector("#userNameError").innerHTML = "";
   signupForm = document.querySelector("#signupForm");
   const allUsers = JSON.parse(localStorage.getItem("usersList"));
   const name = signupForm.userName.value;
+
   if (!allUsers || allUsers.length === 0) {
     allUsers = [];
   }
@@ -13,8 +15,13 @@ function registerUser() {
   if (!duplicateUserName || duplicateUserName.length === 0) {
     const email = signupForm.email.value;
     const password = signupForm.password.value;
-    createUser(name, email, password);
-    signupForm.reset();
+    if (password === "") {
+      document.querySelector("#blankPasswordError").innerHTML =
+        "Please Enter a valid password!";
+    } else {
+      createUser(name, email, password);
+      signupForm.reset();
+    }
   } else {
     document.querySelector("#userNameError").innerHTML =
       "The username already exists!";

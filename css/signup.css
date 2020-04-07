@@ -74,3 +74,6 @@ input:focus {
 #userNameError {
   color: red;
 }
+#blankPasswordError {
+  color: red;
+}
