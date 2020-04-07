@@ -1,5 +1,5 @@
 const TITLE_DISPLAY_LIMIT = 40;
-const NUM_OF_TASKS_ON_CARD = 3;
+const NUM_OF_TOTAL_TASKS_ON_CARD = 3;
 const TITLE_CHARS_EXCEED_LIMIT = 70;
 const CURRENT_USER = JSON.parse(localStorage.getItem("currentUser"));
 const key = "usersList";
@@ -113,16 +113,18 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
     if (!currUserTodos) return;
     else {
       const cardIndex = findCurrentCard(newCard.id);
-      if (!cardIndex) return;
-      taskItems = currUserTodos[cardIndex].tasks;
-      taskItems = sortingOfTasks(taskItems);
-      ulDiv = createUnorderedListElements(taskItems, ulDiv);
-      if (taskItems.length > NUM_OF_TASKS_ON_CARD) {
-        const largeCardIndicator = document.createElement("li");
-        const enlarger = document.createTextNode(" . . . ");
-        largeCardIndicator.setAttribute("id", "listItem");
-        largeCardIndicator.appendChild(enlarger);
-        ulDiv.appendChild(largeCardIndicator);
+      if (cardIndex === -1) return;
+      else {
+        taskItems = currUserTodos[cardIndex].tasks;
+        taskItems = sortingOfTasks(taskItems);
+        ulDiv = createUnorderedListElements(taskItems, ulDiv);
+        if (taskItems.length > NUM_OF_TOTAL_TASKS_ON_CARD) {
+          const largeCardIndicator = document.createElement("li");
+          const enlarger = document.createTextNode(" . . . ");
+          largeCardIndicator.setAttribute("id", "listItem");
+          largeCardIndicator.appendChild(enlarger);
+          ulDiv.appendChild(largeCardIndicator);
+        }
       }
     }
   });
@@ -132,7 +134,7 @@ function createCard(taskItems, taskTitle, creationTime, cardId) {
   });
 
   ulDiv = createUnorderedListElements(taskItems, ulDiv);
-  if (taskItems.length > NUM_OF_TASKS_ON_CARD) {
+  if (taskItems.length > NUM_OF_TOTAL_TASKS_ON_CARD) {
     const largeCardIndicator = document.createElement("li");
     const enlarger = document.createTextNode(" . . . ");
     largeCardIndicator.setAttribute("id", "listItem");
@@ -178,7 +180,7 @@ function addTask() {
   if (taskTitle === "") {
     taskTitle = "My Todo";
   }
-  if (taskItems.length == 0) {
+  if (taskItems.length === 0) {
     document.getElementById("emptyListError").innerHTML = "Please add tasks!";
   } else {
     taskTitle = trimExtraSpaces(taskTitle);
@@ -198,7 +200,7 @@ function addTask() {
 //adding to modal list
 function addToList() {
   let toDo = document.querySelector("#input").value;
-  if (toDo == "") {
+  if (toDo === "") {
     document.getElementById("emptyTaskError").innerHTML =
       "Please enter a valid task !";
   } else {
@@ -378,7 +380,7 @@ function removeCard(currCardId) {
   colorChange();
 }
 function searchCardFromList(searchItem) {
-  if (!currUserTodos || currUserTodos.length == 0) {
+  if (!currUserTodos || currUserTodos.length === 0) {
     return 0;
   }
   searchItem = searchItem.toUpperCase();
@@ -454,6 +456,7 @@ function findCurrentCard(currCardId) {
       return index;
     }
   }
+  return -1;
 }
 
 let searchItem = document.getElementById("searchCard");

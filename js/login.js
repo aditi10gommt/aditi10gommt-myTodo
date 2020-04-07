@@ -1,13 +1,13 @@
-// window.onload = function () {
-//   checkUser();
-// };
-// function checkUser() {
-//   const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
-//   if (loggedInUser) {
-//     window.document.location = `./myTodo.html` + `?userName=${loggedInUser}`;
-//     return;
-//   }
-// }
+window.onload = function () {
+  checkUser();
+};
+function checkUser() {
+  const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (loggedInUser) {
+    window.document.location = `./myTodo.html` + `?userName=${loggedInUser}`;
+    return;
+  }
+}
 
 function validateUser() {
   document.querySelector("#passwordError").innerHTML = "";
@@ -26,18 +26,24 @@ function validateUser() {
       }
     }
   });
-  if (
-    (!validUser || validUser.length == 0) &&
-    document.querySelector("#passwordError").innerHTML == ""
-  ) {
-    document.querySelector("#userNotFoundError").innerHTML = "User not found.";
-    return;
-  }
-  window.user = validUser[0].userName;
 
-  localStorage.setItem("currentUser", JSON.stringify(validUser[0].userName));
-  window.document.location =
-    `./myTodo.html` + `?userName=${validUser[0].userName}`;
+  if (!validUser || validUser.length === 0) {
+    if (document.querySelector("#passwordError").innerHTML === "") {
+      document.querySelector("#userNotFoundError").innerHTML =
+        "User not found.";
+      return;
+    } else {
+      document.querySelector("#passwordError").innerHTML =
+        "Incorrect password!";
+      return;
+    }
+  } else {
+    window.user = validUser[0].userName;
+
+    localStorage.setItem("currentUser", JSON.stringify(validUser[0].userName));
+    window.document.location =
+      `./myTodo.html` + `?userName=${validUser[0].userName}`;
+  }
 }
 
 function getDataFromLocalStorage(key) {
@@ -45,9 +51,9 @@ function getDataFromLocalStorage(key) {
 }
 
 function getCurrentUserIndex() {
-  if (!ALL_USERS || ALL_USERS.length == 0) return;
+  if (!ALL_USERS || ALL_USERS.length === 0) return;
   for (let i = 0; i < ALL_USERS.length; i++) {
-    if (ALL_USERS[i].userName == CURRENT_USER) return i;
+    if (ALL_USERS[i].userName === CURRENT_USER) return i;
   }
 }
 function getCurrUserTodosFromLocalStorage() {

@@ -3,14 +3,14 @@ function registerUser() {
   signupForm = document.querySelector("#signupForm");
   const allUsers = JSON.parse(localStorage.getItem("usersList"));
   const name = signupForm.userName.value;
-  if (!allUsers || allUsers.length == 0) {
+  if (!allUsers || allUsers.length === 0) {
     allUsers = [];
   }
 
   const duplicateUserName = allUsers.filter(function (e) {
-    return e.userName == name;
+    return e.userName === name;
   });
-  if (!duplicateUserName || duplicateUserName.length == 0) {
+  if (!duplicateUserName || duplicateUserName.length === 0) {
     const email = signupForm.email.value;
     const password = signupForm.password.value;
     createUser(name, email, password);
