@@ -11,6 +11,9 @@ const currUserTodos = getCurrUserTodosFromLocalStorage();
 window.onload = init(currUserTodos);
 let taskItems = [];
 function init(currUserTodos) {
+  if (!CURRENT_USER) {
+    window.document.location = `./login.html`;
+  }
   colorChange();
   //   let user = document.location.search.replace(/^.*?\=/, "");
   //   document.querySelector("#user").innerHTML = `welcome ${user}`;

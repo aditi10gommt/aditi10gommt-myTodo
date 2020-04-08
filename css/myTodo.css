@@ -624,6 +624,14 @@ input[type="checkbox"]:checked + label {
     margin-left: -38.5%;
     margin-top: 18px;
   }
+  #emptyBoard {
+    color: black;
+    padding-left: 18%;
+  }
+  #taskBoard {
+    color: black;
+    padding-left: 31%;
+  }
 }
 
 /* end of mobile view code */

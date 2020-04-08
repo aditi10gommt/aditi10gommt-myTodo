@@ -16,6 +16,11 @@ function validateUser() {
   const userName = loginInformation.userName.value;
   const password = loginInformation.password.value;
   const databaseUsers = getDataFromLocalStorage("usersList");
+  if (!databaseUsers || databaseUsers.length == 0) {
+    document.querySelector("#userNotFoundError").innerHTML = "User not found.";
+    return;
+  }
+
   const validUser = databaseUsers.filter(function (e) {
     if (e.userName === userName) {
       if (e.password === password) {
@@ -57,5 +62,8 @@ function getCurrentUserIndex() {
   }
 }
 function getCurrUserTodosFromLocalStorage() {
-  return ALL_USERS[userIndex].todos;
+  if (ALL_USERS[userIndex]) {
+    return ALL_USERS[userIndex].todos;
+  }
+  return;
 }

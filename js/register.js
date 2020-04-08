@@ -2,8 +2,13 @@ function registerUser() {
   document.querySelector("#blankPasswordError").innerHTML = "";
   document.querySelector("#userNameError").innerHTML = "";
   signupForm = document.querySelector("#signupForm");
-  const allUsers = JSON.parse(localStorage.getItem("usersList"));
+  let allUsers = JSON.parse(localStorage.getItem("usersList"));
   const name = signupForm.userName.value;
+  if (name === "") {
+    document.querySelector("#userNameError").innerHTML =
+      "Please enter a valid username.";
+    return;
+  }
 
   if (!allUsers || allUsers.length === 0) {
     allUsers = [];
