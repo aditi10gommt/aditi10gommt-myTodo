@@ -15,8 +15,6 @@ function init(currUserTodos) {
     window.document.location = `./login.html`;
   }
   colorChange();
-  //   let user = document.location.search.replace(/^.*?\=/, "");
-  //   document.querySelector("#user").innerHTML = `welcome ${user}`;
   const dataPresent = addFirstCardMsg();
   if (dataPresent === -1) {
     return;

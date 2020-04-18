@@ -5,7 +5,6 @@
 
 users =[
 user 1 ={
-    userId : ,
     usernname : ,
     password : ,
     email : ,
@@ -13,7 +12,8 @@ user 1 ={
         card 0= {
             id : ,
             title : ,
-            creation time : ,
+            creation time : 
+            alldone :false,
             tasks : [
             task 00 {
                     name : ,
@@ -24,7 +24,24 @@ user 1 ={
                     done : 
                 }
             ]
+        },
+    card 1= {
+            id : ,
+            title : ,
+            creation time : 
+            alldone :false,
+            tasks : [
+            task 10 {
+                    name : ,
+                    done : 
+                }
+            task 11 {
+                    name : ,
+                    done : 
+                }
+            ]
         }
+
 
     ]
 },
